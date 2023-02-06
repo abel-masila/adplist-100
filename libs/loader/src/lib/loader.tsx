@@ -19,7 +19,7 @@ export const LoaderIcon = (props: any) => {
         cx={50}
         cy={50}
         fill="none"
-        stroke="#fff"
+        stroke="cyan"
         strokeWidth={7}
         r={26}
         strokeDasharray="122.52211349000194 42.840704496667314"

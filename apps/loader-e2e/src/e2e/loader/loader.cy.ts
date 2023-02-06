@@ -1,0 +1,7 @@
+describe('loader: LoaderIcon component', () => {
+  beforeEach(() => cy.visit('/iframe.html?id=loadericon--primary'));
+    
+    it('should render the component', () => {
+      cy.get('h1').should('contain', 'Welcome to LoaderIcon!');
+    });
+});

@@ -1,0 +1,30 @@
+{
+  "name": "protected-route-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/protected-route-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/protected-route-e2e/cypress.config.ts",
+        "devServerTarget": "protected-route:storybook",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "ci": {
+          "devServerTarget": "protected-route:storybook:ci"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/protected-route-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["protected-route"]
+}
