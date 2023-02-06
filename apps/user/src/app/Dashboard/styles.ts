@@ -33,6 +33,7 @@ export const Content = styled.div`
   display: flex;
   flex-grow: 1;
   flex-direction: column;
+  padding: 10px;
 `;
 
 export const Img = styled.img`
