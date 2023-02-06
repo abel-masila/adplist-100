@@ -14,7 +14,30 @@ export function App() {
   const [client, initClient] = useDyteClient();
   const auth = sessionStorage.getItem('auth');
 
-  const { isAuthenticated, isLoading, logout, loginWithRedirect } = useAuth0();
+  const {
+    isAuthenticated,
+    isLoading,
+    logout,
+    loginWithRedirect,
+    getAccessTokenSilently,
+  } = useAuth0();
+
+  useEffect(() => {
+    const checkSession = async () => {
+      const token = await getAccessTokenSilently();
+
+      if (!token)
+        logout({ logoutParams: { returnTo: window.location.origin } });
+    };
+
+    const intervalId = setInterval(() => {
+      checkSession();
+    }, 30000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [getAccessTokenSilently, logout]);
 
   if (isLoading) {
     return <LoaderIcon />;
