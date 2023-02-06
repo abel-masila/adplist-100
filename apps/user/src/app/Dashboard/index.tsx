@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { Button } from '@kikao/button';
 import { LoaderIcon } from '@kikao/loader';
+import { Link } from 'react-router-dom';
 import * as Styled from './styles';
 
 export function App() {
@@ -33,7 +34,7 @@ export function App() {
       </Styled.Header>
       <Styled.Main>
         <Styled.SideBarContent>
-          <a href="/">Home</a>
+          <Link to="/">Home</Link>
         </Styled.SideBarContent>
         <Styled.Content>
           <Styled.Img src={user?.picture} alt={user?.name} />

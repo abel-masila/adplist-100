@@ -8,6 +8,7 @@ import * as Styled from './styles';
 import { useEffect } from 'react';
 
 import { Meeting } from './components';
+import { Link } from 'react-router-dom';
 
 export function App() {
   const [client, initClient] = useDyteClient();
@@ -50,12 +51,12 @@ export function App() {
     <DyteProvider value={client} fallback={undefined}>
       <Styled.Container>
         <Styled.Header>
-          <h4>Dashboard</h4>
+          <h4>Kikao Meet</h4>
           {renderAuthControls()}
         </Styled.Header>
         <Styled.Main>
           <Styled.SideBarContent>
-            <a href="/">Home</a>
+            <Link to="/dashboard">Home</Link>
           </Styled.SideBarContent>
           <Styled.Content>
             <Meeting />

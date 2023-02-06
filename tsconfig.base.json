@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@kikao/auth": ["libs/auth/src/index.ts"],
       "@kikao/button": ["libs/button/src/index.ts"],
       "@kikao/loader": ["libs/loader/src/index.ts"],
       "@kikao/protected-route": ["libs/protected-route/src/index.ts"]
