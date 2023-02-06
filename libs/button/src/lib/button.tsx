@@ -6,11 +6,12 @@ export interface ButtonProps {
   htmlType?: string;
   onClick?: () => void;
   primary?: boolean;
+  isLink?: boolean;
 }
 
-export function Button({ title, onClick, primary }: ButtonProps) {
+export function Button({ title, onClick, primary, isLink }: ButtonProps) {
   return (
-    <StyledButton onClick={onClick} primary={primary}>
+    <StyledButton onClick={onClick} primary={primary} isLink={isLink}>
       {title}
     </StyledButton>
   );

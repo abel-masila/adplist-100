@@ -1,26 +1,42 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import { Button } from '@kikao/button';
-import styled from 'styled-components';
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Auth0Provider } from '@auth0/auth0-react';
 
-const StyledApp = styled.div`
-  // Your style here
-`;
+import Meetings from './Meetings';
+import Auth from './Auth';
+import { ProtectedRoute } from '@kikao/protected-route';
+import { Suspense } from 'react';
+import { LoaderIcon } from '@kikao/loader';
 
 export function App() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const navigate = useNavigate();
 
-  if (isLoading) {
-    return <div>Loading ...</div>;
-  }
-  console.log(user, isAuthenticated, isLoading);
+  const onRedirectCallback = (appState: any) => {
+    navigate((appState && appState.returnTo) || window.location.pathname);
+  };
 
-  return isAuthenticated ? (
-    <div>
-      <img src={user?.picture} alt={user?.name} />
-      <h2>{user?.name}</h2>
-      <p>{user?.email}</p>
-    </div>
-  ) : null;
+  const { NX_AUTH0_CLIENT_ID, NX_AUTH0_DOMAIN } = process.env;
+
+  return (
+    <Auth0Provider
+      domain={NX_AUTH0_DOMAIN!}
+      clientId={NX_AUTH0_CLIENT_ID!}
+      onRedirectCallback={onRedirectCallback}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
+      <Suspense fallback={<LoaderIcon />}>
+        <Routes>
+          <Route path="/" element={<Auth />} />
+          <Route
+            path="/meetings"
+            element={<ProtectedRoute component={Meetings} />}
+          />
+        </Routes>
+      </Suspense>
+    </Auth0Provider>
+  );
 }
 
 export default App;
