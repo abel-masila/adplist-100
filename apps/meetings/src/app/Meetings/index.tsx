@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useAuth0 } from '@auth0/auth0-react';
 
@@ -8,11 +9,19 @@ import * as Styled from './styles';
 import { useEffect } from 'react';
 
 import { Meeting } from './components';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { joinExistingRoom } from '../../utils';
+
+type Params = {
+  id: string | undefined;
+  room: string;
+};
 
 export function App() {
+  const { id } = useParams<Params>();
   const [client, initClient] = useDyteClient();
   const auth = sessionStorage.getItem('auth');
+  const roomName = sessionStorage.getItem('roomName');
 
   const {
     isAuthenticated,
@@ -43,10 +52,18 @@ export function App() {
     return <LoaderIcon />;
   }
 
+  useEffect(() => {
+    if (!auth && !roomName) {
+      //creating a new participant
+      joinExistingRoom(id!, 'Test');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     initClient({
-      authToken: auth!,
+      authToken: auth! || '',
       // set default values for user media
       defaults: {
         audio: false,

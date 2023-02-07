@@ -30,7 +30,7 @@ export function App() {
         <Routes>
           <Route path="/" element={<Auth />} />
           <Route
-            path="/meetings"
+            path="/meetings/:id"
             element={<ProtectedRoute component={Meetings} />}
           />
         </Routes>
