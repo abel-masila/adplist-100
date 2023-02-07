@@ -10,6 +10,8 @@ Run `yarn run:all` to run both apps concurrently. The app will automatically rel
 
 Run `npx nx storybook loader` or `npx nx storybook button` to view storybook for loader and button share components.
 
+Run `yarn nx test {dir}` to run jest test for each folder. e.g `yarn nx test loader` to run tests for shared loader component.
+
 ## Understand this workspace
 
 Run `nx graph` to see a diagram of the dependencies of the projects.
