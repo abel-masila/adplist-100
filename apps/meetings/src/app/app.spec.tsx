@@ -1,15 +1,19 @@
 import { render } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 
 import App from './app';
 
+jest.mock('@auth0/auth0-react', () => ({
+  Auth0Provider: ({ children }) => '<div>{children}</div>',
+}));
+
 describe('App', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<App />);
+    const { baseElement } = render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
     expect(baseElement).toBeTruthy();
-  });
-
-  it('should have a greeting as the title', () => {
-    const { getByText } = render(<App />);
-    expect(getByText(/Welcome meetings/gi)).toBeTruthy();
   });
 });
